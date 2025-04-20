@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>typing certificate1</title>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="styles.css">    
+</head>
+<body>
+    <div class="container">
+        <div class="page_page1">
+            <h1 id="centre">Typing Pdf Generator</h1>
+                <div id="photoyahapreviewhorhahai">
+                    <img id="previewImage" src="#" alt="Preview Image">
+                </div>
+            <form id="formdatalanahai">
+                <!-- MS NUB & ROLL  -->
+                   
+                <!-- MS NUB & ROLL  -->
+                 <!-- name & father name  -->
+                <div class="fixedgap">
+                    <div class="textdesing">                    
+                        <label for="NAME">NAME.:</label>
+                        <input type="text" id="nameinput" oninput="updatedetials()">
+                    </div>
+                    <div class="textdesing">                                           
+                        <label for="fathername">FATHER'S NAME.:</label>
+                        <input type="text" id="fathernameinput" oninput="updatedetials()">
+                    </div>                    
+                </div>
+                <!-- name & father name  -->  
+                 <!-- course, hindi & enlgish speeed 
+                                    -->
+                <div class="fixedgap">
+                    <div class="textdesing">
+                        <label for="MS NUB">MS NUB:</label>
+                        <input type="text" id="msnubinput" name="msnubinput" oninput="updatedetials()">
+                    </div> 
+                    <div class="textdesing">                    
+                        <label for="rollinput">ROLL NUB:</label>
+                        <input type="text" id="rollinput" name="rollinput" oninput="updatedetials()"> 
+                    </div>  
+                    <div class="textdesing">
+                        <label for="dob">DOB:</label>
+                        <input type="date" id="dobinput" name="dobinput" oninput="updatedetials()">
+                    </div>      
+                </div>
+                <div class="fixedgap">
+                    <div class="textdesing">
+                        <label for="course">COURSES .:</label>
+                        <select id="courseslenahai" name="courseslenahai"  onchange="updatedetials()">
+                        <option value="ENGLISH AND HINDI TYPING">H+E TYPING</option>
+                        <option value="HINDI TYPING">Hindi TYPING</option>
+                        <option value="ENGLISH TYPING">English TYPING</option>
+                        </select>
+                    </div>
+                    <div class="textdesing">
+                        <label for="english">ENG SPEED.:</label>   
+                        <input type="text" id="englishinput" oninput="updatedetials()"> 
+                    </div>                   
+                         
+                    <div class="textdesing">
+                        <label for="hindi">H SPEED .:</label>
+                        <input type="text" id="hindiinput" oninput="updatedetials()"> 
+                    </div>                   
+                                                                           
+                </div>
+                <div class="fixedgap">
+                    <button class="CHANGEBUTTON" type="button" onclick="previewForm()">Change Speed</button>
+                </div>
+                
+                <!-- course, hindi & enlgish speeed                     -->
+                <div class="fixedgap">
+                    <div class="imagechooose">
+                        <input type="file" id="imageInput" accept="image/*" onchange="updatePreview()">
+                        <input type="text" id="imageUrl" placeholder="Enter image URL" oninput="updatePreview()">
+                    </div>
+                                
+                    
+                </div>
+                <div class="fixedgap">
+                    <button onclick="rotateLeft()">Rotate Left</button>
+                    <button onclick="rotateRight()">Rotate Right</button>
+                </div>
+            </form>            
+        </div>       
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Noto+Serif+Devanagari:wght@200&family=Poppins:wght@200&family=Rubik+Vinyl&family=Zen+Dots&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600;700;900&display=swap">
+    <link rel="stylesheet" href="https://www.gcsm.net.in/assets/tmp-assets/css/certificate.css">
+    <style>
+        @font-face {
+            font-family: Cambria;
+            src: url('https://www.gcsm.net.in/assets/tmp-assets/fonts/Cambria.ttf')
+        }
+        .c-body {
+            background-image: url('https://www.gcsm.net.in/assets/tmp-assets/images/bg.png');
+        }
+        
+    </style>
+    
+</head>
+<body>
+<div class="page2">
+    <div class="root" id="root">
+        <div class="App">
+            <div class="flex">
+                <div class="flex-initial w-fit">
+                    <div class="card font-bold bg-base-100 border-[6px] border-blue-950">
+                        <div class="card-body p-2">
+                            <div class="border-4 border-red-600 h-full p-2">
+                                <div class="border-4 border-yellow-400 h-full p-2">
+                                    <div class="c-body border-2 border-blue-950 p-6 text-center">
+                                        <div class="ml-300">                                            
+                                            <div class="rightsidekrnahai">
+                                                    <div class="ml-2 flex-initial f-font !text-lg w-fit text-right"> An ISO 9001 : 2015 Certified Organization  </div>
+                                                <!-- <div id="Please_update" class="ml-2 normal-font border-b flex justify-center items-center font-bold uppercase border-white border-dotted"> 012004A/ADC </div>                                                     -->
+                                            </div>
+                                                <div id="badmesamjhe" class="flex pt-1 pb-1 text-left pag">                                                                                                                                          
+                                                    <div class="ml-2 flex-initial f-font !text-lg w-fit text-left">Registration Nub : 24MEQPE75 </div>
+                                            </div>                                                                                                                                
+                                        </div> 
+                                        <img src="https://www.gcsm.net.in/assets/tmp-assets/images/logo.png">
+                                        <div class="grid grid-cols-2 mt-4 mb-4 m-1">
+                                            
+                                            <div>
+                                                <img src="https://www.gcsm.net.in/assets/tmp-assets//images/cert-typing-banner.png">
+                                            </div>
+                                            <div class="ml-20">
+                                                <div class="flex pt-1 pb-1 text-left">
+                                                    <div class="flex-initial f-font !text-lg w-fit">Roll No :</div>
+                                                    <p id="roll" class="ml-2 f-font !text-lg uppercase border-b border-black border-dotted">015456/TYP</p>
+                                                </div>
+                                                <div class="flex pt-1 pb-1 text-left">
+                                                    <div class="flex-initial f-font text-lg w-fit">Date Of Birth :</div>
+                                                    <p id="DOB" class="ml-2 text-lg  f-font border-b border-black border-dotted ">05-12-2002</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-3">
+                                            <div>
+                                                <p class="text-xl uppercase ele">Certificate Nub.: <span id="msnub">21657</span><p>
+                                            <div id="qrcode"></div>                                           
+                                                <p class="text-xl cert-body1 mt-2">of course completion</p>
+                                            </div>
+                                            <div>
+                                                <img class="m-auto h-44" src="https://www.gcsm.net.in/assets/tmp-assets/images/logo-circle.png">
+                                            </div>
+                                            <div class="justify-self-center pt-2">
+                                                <div class="w-28 border border-black ml-auto mr-auto h-32" id="cropperContainer">
+                                                <img id="croppedImage" src="#" alt="Cropped Image">
+                                            </div>
+                                            <p class="c-font text-2xl mt-4">Global Foundation</p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 c-font font-extrabold text-xl">
+                                            <p>A Program Initiated by Global Foundation Regd. Under sec.</p>
+                                            <p> 21 Societies Act. 1860, Government Regd. No. 120/2015-16</p>
+                                        </div>
+                                        <div class="mt-2 !font-black cert-body pt-2">
+                                            <div class="flex pt-2 pb-3 text-left">
+                                                <div class="flex-initial w-fit">This Certificate is awarded to Mr./Ms</div>
+                                                <p id="naminput" class="normal-font ml-2 border-b flex justify-center items-center font-bold uppercase border-black border-dotted">RAVI RANJAN KUMAR</p>
+                                            </div>
+                                            <div class="flex pt-2 pb-2 text-left">
+                                                <div class="flex-initial w-fit">S/o, D/o.</div>
+                                                <p id="bapkanameaayega" class="ml-2 mr-2 normal-font border-b flex justify-center items-center font-bold uppercase border-black border-dotted">VIJAY SINGH</p>
+                                                <div class="flex-initial w-fit">On Successful</div>
+                                            </div>
+                                            <div class="flex pt-2 pb-2 text-left">
+                                                <div class="flex-initial w-fit">Completion of the course</div>
+                                                <p id="hindienglishcoures" class="normal-font ml-2 flex justify-center items-center uppercase font-bold border-b border-black border-dotted">ENGLISH AND HINDI TYPING</p>
+                                            </div>
+                                            <div class="flex pt-2 pb-2 text-left">
+                                                <div class="flex-initial w-fit">Of</div>
+                                                <p class="normal-font ml-2 mr-2 flex font-normal justify-center uppercase items-center border-b border-black border-dotted">G.C.S.M. LOHAR LANE, MUSALLAHPUR HATT, PATNA-06</p>
+                                            </div>
+                                            <div class="flex pt-2 pb-2 text-left">
+                                                <div class="flex-initial w-fit">of Duration</div>
+                                                <p class="normal-font ml-2 mr-2 flex justify-center uppercase items-center border-b border-black border-dotted"><span class="font-bold">SIX</span></p>
+                                                <div class="flex-initial w-fit">Month who</div>
+                                            </div>
+                                            <div class="flex pt-2 pb-2 text-left">
+                                                <div class="flex-initial w-fit">has Speed in English</div>
+                                                <p class="ml-2 normal-font mr-2 flex justify-center items-center font-bold border-b border-black border-dotted"><span id="englishspeed">45</span> WPM</p>
+                                                <div class="flex-initial w-fit">Hindi</div>
+                                                <p  class="ml-2 normal-font mr-2 flex justify-center items-center font-bold border-b  border-black border-dotted"><span id="hindispeed"> 35 </span> WPM</p>
+                                                
+                                            <!--</div>                                
+                                                <div class="flex pt-2 pb-2 text-left">
+                                                <div class="flex-initial w-fit">has passed the examination held on</div>
+                                                <p class="ml-2 normal-font mr-2 flex justify-center items-center border-b border-black border-dotted"><span class="font-bold uppercase">July 2022</span></p>
+                                                <div class="flex-initial w-fit">and</div>-->
+                                            </div>
+                                            <div class="flex pt-2 pb-2 text-left">
+                                                <!--<div class="flex-initial w-fit">has procured the grade</div>
+                                                <p class="ml-2 mr-2 normal-font border-b flex justify-center items-center border-black border-dotted"><span class="font-bold uppercase">Excellent</span></p>-->
+                                            </div>
+                                            </div>
+                                        <div class="grid mt-4 pb-10 pt-12 grid-cols-3">
+                                            <div>
+                                                <img class="w-40 ml-auto mr-auto mt-[-14px] mb-[-10px]" src="https://www.gcsm.net.in/assets/tmp-assets/images/center-head-sign.png">
+                                                <p class="ml-10 mr-10 pt-0 mt-0 c-sign border-b-c border-black"></p>
+                                                <p class="font-bold text-xl">Centre Head</p>
+                                            </div>
+                                            <div>
+                                                <p class="ml-10 mr-10 border-b-c border-black text-lg !mt-[-4px]">20-02-2024</p>
+                                                <p class="font-bold text-xl">Date of Issue</p>
+                                            </div>
+                                            <div>
+                                                <img src="https://www.gcsm.net.in/assets/tmp-assets/images/center-stamp.png" class="w-44 z-10 ml-auto mr-auto !mb-[-70px] !mt-[-50px]">
+                                                <p class="ml-10 mr-10 z-0 border-b-c border-black !mt-[-90px]"></p>
+                                            </div>
+                                        </div>
+                                        <div class="c-footer text-left mt-4">
+                                            <p class="font-bold text-xl text-it"><span class="italic text-[red]">Head Office:- </span>Global foundation, Lohar Lane, Musallahpur Hatt, Patna-06</p>
+                                            <p class="font-bold text-xl text-it"><span class="italic text-[red]">Branch Office:- </span> G.C.S.M. Near BOI Khanwan, Narhat, Nawada-805122 </p>
+                                            <div class="flex text-xl mt-1 text-blue-900 font-bold">
+                                                <p><b>Website: </b><a href="https://www.gcsm.net.in">www.gcsm.net.in</a></p>
+                                                <p class="ml-4"><b>E-mail: </b><a href="mailto:gcsmcomputereducation@gmail.com">gcsmcomputereducation@gmail.com</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://www.gcsm.net.in/assets/tmp-assets/js/qrcode.min.js" defer></script>
+<script src="https://www.gcsm.net.in/assets/tmp-assets/js/template.js" defer></script>
+<script>
+    function updatedetials() {
+        var msnub = document.getElementById("msnubinput").value;
+        var roll = document.getElementById("rollinput").value;
+        var nameaarhahai = document.getElementById("nameinput").value;
+        var pitakanameaayega = document.getElementById("fathernameinput").value;
+        var select = document.getElementById('courseslenahai');
+        //ye code typing speed ka hi hai jisko hide me rakha gya hai
+        /*var hindispeedaayega = document.getElementById("hindiinput").value;
+        var englishspeedaayega = document.getElementById("englishinput").value;
+        var courseName = document.getElementById('hindienglishcoures');
+        courseName.textContent = select.options[select.selectedIndex].value;*/
+        var courseSelect = document.getElementById('courseslenahai');
+        var selectedCourse = courseSelect.options[courseSelect.selectedIndex].value;
+  
+        // Update course display
+        var courseDisplay = document.getElementById('hindienglishcoures');
+         courseDisplay.textContent = selectedCourse;  
+        // Get input fields
+        var hindiSpeedInput = document.getElementById('hindiinput');
+        var englishSpeedInput = document.getElementById('englishinput');  
+        // Update speed display
+        var hindiSpeedDisplay = document.getElementById('hindispeed');
+        var englishSpeedDisplay = document.getElementById('englishspeed');  
+        // Enable/disable input fields based on the selected course
+        if (selectedCourse === 'ENGLISH TYPING') {
+        hindiSpeedInput.value = '';
+        hindiSpeedInput.disabled = true;
+        englishSpeedInput.disabled = false;
+    }   else if (selectedCourse === 'HINDI TYPING') {
+        englishSpeedInput.value = '';
+        englishSpeedInput.disabled = true;
+        hindiSpeedInput.disabled = false;
+    }   else {
+        hindiSpeedInput.disabled = false;
+        englishSpeedInput.disabled = false;
+    }  
+    // Update speed display with input values or default to 0 if empty
+        hindiSpeedDisplay.textContent = hindiSpeedInput.value || '0';
+        englishSpeedDisplay.textContent = englishSpeedInput.value || '0';
+               
+        document.getElementById("msnub").innerText = msnub;
+        //document.getElementById("hindispeed").innerText = hindispeedaayega;
+        //document.getElementById("englishspeed").innerText = englishspeedaayega;
+        document.getElementById("roll").innerText = roll; 
+        document.getElementById("naminput").innerText = nameaarhahai;
+        document.getElementById("bapkanameaayega").innerText = pitakanameaayega;        
+        //dob yaha se update ho rha hai            
+        var dobInput = document.getElementById('dobinput').value;
+        var dobDisplay = document.getElementById('DOB');
+        if (dobInput) {
+        var date = new Date(dobInput);
+        var day = String(date.getDate()).padStart(2, '0');
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var year = date.getFullYear();
+        var formattedDate = day + '-' + month + '-' + year;
+        dobDisplay.textContent = formattedDate; // Update the displayed date
+        var formattedDate = day + '-' + month + '-' + year;
+            dobDisplay.textContent = formattedDate; // Update the displayed date
+        } else {
+            dobDisplay.textContent = 'Choose Date'; // In case the input is not valid
+        }
+    }    
+</script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<!-- yaha typing speed ka code change krne ke kosis kr rhe hai-->
+<script>
+    var previewForm = function() {
+        const name = document.getElementById('name').value;
+        const fathername = document.getElementById('fathername').value;
+        const previewText = `Name: ${name}<br>Father's Name: ${fathername}`;
+        document.getElementById('preview').innerHTML = previewText;
+        //yaha paste kr rhe hai speed chang  ka
+        var courseDisplay = document.getElementById('hindienglishcoures');
+         courseDisplay.textContent = selectedCourse;  
+        // Get input fields
+        var hindiSpeedInput = document.getElementById('hindiinput');
+        var englishSpeedInput = document.getElementById('englishinput');
+  
+        // Update speed display
+        var hindiSpeedDisplay = document.getElementById('hindispeed');
+        var englishSpeedDisplay = document.getElementById('englishspeed');
+  
+        // Enable/disable input fields based on the selected course
+        if (selectedCourse === 'ENGLISH TYPING') {
+        hindiSpeedInput.value = '';
+        hindiSpeedInput.disabled = true;
+        englishSpeedInput.disabled = false;
+    }   else if (selectedCourse === 'HINDI TYPING') {
+        englishSpeedInput.value = '';
+        englishSpeedInput.disabled = true;
+        hindiSpeedInput.disabled = false;
+    }   else {
+        hindiSpeedInput.disabled = false;
+        englishSpeedInput.disabled = false;
+    }
+  
+    // Update speed display with input values or default to 0 if empty
+        hindiSpeedDisplay.textContent = hindiSpeedInput.value || '0';
+        englishSpeedDisplay.textContent = englishSpeedInput.value || '0';
+    };
+</script>
+<script>
+    // Initialize QR code instance
+    let qrcode = new QRCode(document.getElementById("qrcode"), {
+        width: 150,
+        height: 150,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+
+    // Function to update QR code
+    function updateQRCode() {
+        var msnub = document.getElementById('msnubinput') ? document.getElementById('msnubinput').value : '';
+        var roll = document.getElementById('rollinput') ? document.getElementById('rollinput').value : '';
+        var dob = document.getElementById('dobinput') ? document.getElementById('dobinput').value : '';
+        var name = document.getElementById('nameinput') ? document.getElementById('nameinput').value : '';
+        var fatherName = document.getElementById('fathernameinput') ? document.getElementById('fathernameinput').value : '';
+        var courses = document.getElementById('courseslenahai').value;
+        var hindiSpeed = document.getElementById('hindiinput').value;
+        var englishSpeed = document.getElementById('englishinput').value;
+
+        var qrData = "CERTIFICATE NUB: " + msnub + "\n" +
+                     "ROLL NUB: " + roll + "\n" +
+                     "DOB: " + dob + "\n" +
+                     "NAME: " + name + "\n" +
+                     "FATHER'S NAME: " + fatherName + "\n" +
+                     "COURSES: " + courses + "\n";
+
+        if (courses === "ENGLISH AND HINDI TYPING") {
+            qrData += "HINDI SPEED: " + hindiSpeed + " WPM" + "\n" +
+                      "ENGLISH SPEED: " + englishSpeed +" WPM" ;
+        } else if (courses === "HINDI TYPING") {
+            qrData += "HINDI SPEED: " + hindiSpeed + " WPM";
+        } else if (courses === "ENGLISH TYPING") {
+            qrData += "ENGLISH SPEED: " + englishSpeed + " WPM";
+        }
+
+        qrcode.makeCode(qrData); // Update QR code with new data
+    }
+
+    // Attach event listeners to input fields to update QR code dynamically
+    document.querySelectorAll('input, select').forEach(item => {
+        item.addEventListener('input', updateQRCode);
+    });
+
+    // Generate initial QR code
+    updateQRCode();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<script>
+    var cropper;
+    function updatePreview() {
+        var imageUrl = document.getElementById('imageUrl').value.trim();
+        var imageInput = document.getElementById('imageInput');
+        var previewImage = document.getElementById('previewImage');
+        var croppedImage = document.getElementById('croppedImage');
+         // Get cropped image element
+        if (imageInput.files && imageInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                previewImage.src = e.target.result;
+                initializeCropper(previewImage, croppedImage); // Pass croppedImage element
+            }
+            reader.readAsDataURL(imageInput.files[0]);
+        } else if (imageUrl !== "") {
+            previewImage.src = imageUrl;
+            initializeCropper(previewImage, croppedImage); // Pass croppedImage element
+        }
+    }
+    function initializeCropper(image, croppedImage) {
+        if (cropper) {
+            cropper.destroy();
+        }
+        cropper = new Cropper(image, {
+            aspectRatio: NaN,
+            cropBoxResizable: true,
+            cropBoxMovable: true,
+            ready: function() {
+                cropper.setCropBoxData({
+                    width: 200,
+                    height: 300,
+                });
+            },
+            crop: function(event) {
+                var canvas = cropper.getCroppedCanvas(); // Get cropped canvas
+                croppedImage.src = canvas.toDataURL(); // Set cropped image src
+            }
+        });
+    }
+    function rotateLeft() {
+        cropper.rotate(-90);
+    }
+    function rotateRight() {
+        cropper.rotate(90);
+    }
+</script>
+
+</body>
+</html>
+    
+
+
