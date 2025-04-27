@@ -22,15 +22,15 @@ async function fetchData() {
     return data.records;
 }
 
-function formatDate(dobRaw) {
-    if (!dobRaw) return '[DOB]';
-    const date = new Date(dobRaw);
-    if (isNaN(date.getTime())) return '[DOB]';
-    const day = String(date.getUTCDate()).padStart(2, '0');
-    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-    const year = date.getUTCFullYear();
-    return `${day}-${month}-${year}`;
-}
+// function formatDate(dobRaw) {
+//     if (!dobRaw) return '[DOB]';
+//     const date = new Date(dobRaw);
+//     if (isNaN(date.getTime())) return '[DOB]';
+//     const day = String(date.getUTCDate()).padStart(2, '0');
+//     const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+//     const year = date.getUTCFullYear();
+//     return `${day}-${month}-${year}`;
+// }
 
 function getDirectDriveLink(driveLink) {
     let fileId = "";
@@ -48,7 +48,8 @@ function fetch_data_from_API(record) {
     const course = record.fields.SELECT_COURSE || '[Course]';
     const roll = record.fields.ROLL_NUB || '[Roll No]';
     const ms = record.fields.Ms_Nub || '[Ms No]';
-    const dobFormatted = formatDate(record.fields.DOB);
+    const dobFormatted = record.fields.DOB || '[dob]';
+    // const dobFormatted = formatDate(record.fields.DOB);
 
 
 // YAHA SE QR KA DATA UPDATE HO RHA HAI 
@@ -73,12 +74,12 @@ function displayCertificate(record) {
     const course = f.SELECT_COURSE || '[Course Name]';
     const roll = f.ROLL_NUB || '[Roll No]';
     const ms = f.Ms_Nub || '[Ms No]';
-    const dobFormatted = formatDate(f.DOB);
+    const dobFormatted = record.fields.DOB || '[dob]';
     // yaha name ka  condition kam kr rha hai 
     let akashname = '';
-    if (course === 'Advance Diploma In Computer Application') {
+    if (course === 'Advance Diploma in Computer Application') {
     akashname = 'XXXXXXXXXXXXXXXXXXXXXXXX';
-    } else if (course === 'Diploma In Computer Application') {
+    } else if (course === 'Diploma in Computer Application') {
     akashname = 'XXXXXXXXXXXXXXXXXXXXXXXX';
     } else if (course === 'English And Hindi Typing') {
     akashname = name;    }
@@ -99,8 +100,8 @@ function displayCertificate(record) {
     get('DOBfatch').innerText = dobFormatted;
 
     let duration = '';
-    if (course === 'Advance Diploma In Computer Application') duration = 'XXXXXXXXXXXXXXXXXXXXXXXX';
-    else if (course === 'Diploma In Computer Application') duration = 'XXXXXXXXXXXXXXXXXXXXXXXX';
+    if (course === 'Advance Diploma in Computer Application') duration = 'XXXXXXXXXXXXXXXXXXXXXXXX';
+    else if (course === 'Diploma in Computer Application') duration = 'XXXXXXXXXXXXXXXXXXXXXXXX';
     else if (course === 'English And Hindi Typing') duration = 'Six';
 
     get('durationSelect').innerText = duration;
