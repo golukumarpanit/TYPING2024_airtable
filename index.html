@@ -27,6 +27,7 @@
 </head>
 </html>
 <body>  
+    
     <div class="preview-container">
         <div class="first-page">             
             <div class="preview" id="preview1">                
@@ -258,11 +259,11 @@
                                             
                                             <div  class="flex pt-2 pb-2 text-left">
                                                 <div class="flex-initial w-fit">has Speed in English</div>
-                                                <p class="ml-2 normal-font mr-2 flex justify-center items-center font-bold border-b border-black border-dotted"><span id="englishspeed">45</span> WPM</p>
+                                                <p class="ml-2 normal-font mr-2 flex justify-center items-center font-bold border-b border-black border-dotted"> <span id="englishspeed">45</span>&nbsp;WPM </p> 
                                                 <div class="flex-initial w-fit">Hindi</div>
-                                                <p  class="ml-2 normal-font mr-2 flex justify-center items-center font-bold border-b  border-black border-dotted"><span id="hindispeed"> 35 </span> WPM</p>
-                                                
-                                            <!--</div>                                
+                                                <p  class="ml-2 normal-font mr-2 flex justify-center items-center font-bold border-b  border-black border-dotted"><span id="hindispeed"> 35 </span>&nbsp;WPM</p>
+
+                                            <!--</div>
                                                 <div class="flex pt-2 pb-2 text-left">
                                                 <div class="flex-initial w-fit">has passed the examination held on</div>
                                                 <p class="ml-2 normal-font mr-2 flex justify-center items-center border-b border-black border-dotted"><span class="font-bold uppercase">July 2022</span></p>
@@ -320,42 +321,50 @@
     async function fetchPhoto() {
       const message = document.getElementById("message");
       const photoElement = document.getElementById("croppedImage");
+      const previewImage = document.getElementById("previewImage");
 
       try {
-        // Airtable से data fetch करना
+        // ✅ Airtable से data fetch करना
         const response = await fetch(
           `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula={ROLL_NUB}="${rollNumber}"`, 
-          {
-            headers: { Authorization: `Bearer ${API_KEY}` }
-          }
+          { headers: { Authorization: `Bearer ${API_KEY}` } }
         );
 
         const data = await response.json();
         console.log("Airtable Response:", data);
 
-        if (data.records.length > 0) {
+        if (data.records && data.records.length > 0) {
           const fields = data.records[0].fields;
+          console.log("Fields Object:", fields);
 
           if (fields.photo && Array.isArray(fields.photo) && fields.photo.length > 0) {
             console.log("Photo URL Found:", fields.photo[0].url);
+
             photoElement.src = fields.photo[0].url;
+            previewImage.src = fields.photo[0].url;
+
             photoElement.style.display = "block";
-            message.innerText = "Photo Loaded Successfully!";
+            previewImage.style.display = "block";
+
+            message.innerText = "✅ Photo Loaded Successfully!";
           } else {
-            console.log("No Photo Found, showing default image");
+            console.warn("⚠ No Photo Found, showing default image");
             photoElement.src = "default-photo.png";
             photoElement.style.display = "block";
-            message.innerText = "No Photo Found (Showing Default)";
+            previewImage.style.display = "none";
+            message.innerText = "⚠ No Photo Found (Showing Default)";
           }
         } else {
-          console.log("No record found for this roll number");
+          console.warn("⚠ No record found for this roll number");
           message.innerText = "No Record Found for Roll: " + rollNumber;
           photoElement.style.display = "none";
+          previewImage.style.display = "none";
         }
       } catch (error) {
-        console.error("Error fetching photo:", error);
-        message.innerText = "Error fetching data!";
+        console.error("❌ Error fetching photo:", error);
+        message.innerText = "❌ Error fetching data!";
         photoElement.style.display = "none";
+        previewImage.style.display = "none";
       }
     }
 
