@@ -27,9 +27,18 @@ async function fetchRecordByRoll(roll) {
 
         const data = await res.json();
 
+        // yaha se
         if (data.records && data.records.length > 0) {
-            displayCertificate(data.records[0].fields); 
-        } else {
+        const fields = data.records[0].fields;
+
+        // Roll number aur tab title update
+        displayCertificatell(fields);
+
+        // Baaki details show karne ke liye
+        displayCertificate(fields);
+            } 
+        // yaha tak 
+        else {
             document.getElementById("errorMsg").innerText = "❌ No record found!";
         }
         
@@ -52,7 +61,16 @@ if (rollNumber) {
 function displayCertificate(fields) {
     // Text fields set करना
     document.getElementById("qrc").innerText = fields.Ms_Nub || "N/A";
+    function displayCertificate(fields) {
+    // Roll number display
     document.getElementById("RollNubid").innerText = fields.ROLL_NUB || "N/A";
+
+    // Title me Roll Number set karna
+    document.title = fields.ROLL_NUB ? `Certificate - ${fields.ROLL_NUB}` : "Certificate";
+
+    // Agar aur kuch fields dikhani ho to yaha add kar sakte ho
+}
+
     document.getElementById("DOBfatch").innerText = fields.DOB || "N/A";
     document.getElementById("studentName").innerText = fields.NAME || "N/A";
     document.getElementById("fatherName").innerText = fields.FATHERS_NAME || "N/A";
@@ -146,5 +164,19 @@ if (rollNumber) {
     document.getElementById("errorMsg").innerText = "⚠️ No roll number provided!";
 }
 
-// photo lena ke kosisi
+// title change krne ka kosiis ho rha hai
+function displayCertificatell(fields) {
+            const roll = fields.ROLL_NUB || "N/A";
+            document.getElementById("RollNubid").innerText = roll;
 
+            // **Yaha title automatic set ho raha hai**
+            document.title = `${roll}`;
+        }
+
+        // Agar roll number URL me nahi hai
+        if (rollNumber) {
+            fetchRecordByRoll(rollNumber);
+        } else {
+            document.getElementById("errorMsg").innerText = "⚠️ No roll number provided!";
+            document.title = "No Roll Number"; 
+        }
