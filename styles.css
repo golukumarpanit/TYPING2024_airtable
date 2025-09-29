@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 .ml-300 {
     display: flex;
@@ -313,3 +314,320 @@ margin-left: 55px;
     
     
 
+=======
+
+.ml-300 {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rightsidekrnahai{
+    display: flex;
+    background-color: rgb(56, 44, 221);
+    color: white;
+    border-radius: 9px;
+    width: 350px;
+    
+}
+.badmesamjhe{
+    margin-left: 100px;
+}
+.radhekrishan{
+    margin-top: -2%;
+    
+}
+
+.cert{
+    float: right;
+}
+
+
+.flex-initial {
+    flex: 0 1 auto;
+}
+
+.normal-font {
+    font-size: 1rem; /* Adjust font size as needed */
+    border-bottom: 1px dotted black; /* Border style */
+    display: inline-block; /* Ensuring inline block display */
+}
+.ekmedekhanahai{
+    display: flex;
+    width: 100%;
+    background-color: rebeccapurple;
+   
+    /* padding: 5px;
+    margin-bottom: 1px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    box-sizing: border-box; */
+}
+.ekmedekhanahai1{
+    display: flex;
+    flex-direction: column;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 12pt;
+    margin: 0% auto;
+    width: 100%;  
+}
+.ekmedekhanahai1:hover {
+    background-color: #e3e6e8; /* Light color on hover */
+}
+
+.bichme {
+    margin-bottom: 10px;
+}
+
+.bichme button,
+.ekmedekhanaha button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: rebeccapurple;
+    cursor: pointer;
+}
+
+.bichme button:hover,
+.ekmedekhanahai button:hover {
+    background-color: rgb(240, 233, 233);
+}
+#croppedImage{
+    height: 100%;
+    width: 100%;
+
+}
+/* yaha se uspage ka css hai?? */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}       
+/* Common CSS styles for both previews */
+.preview-container {
+    display: flex;
+    justify-content: left;
+    margin: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    
+
+ 
+   
+}
+.first-page{
+    margin: 10px;
+    margin-top: 0;
+    justify-items: center;
+    width: 500px;
+    
+}
+.preview{
+    border: solid rgb(184, 171, 171) 1px;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+}
+
+
+.preview:first-child {
+    margin-right: 0;
+    flex: 0 0 60%; /* 60% width for the first preview */
+    box-shadow: 5px 5px 10px black;
+}
+/* .preview1{
+    width: 100%;
+    height: 100%;
+} */
+.form-container {  
+    height: 400px;
+    width: 500px;
+    border: solid 1px rgb(152, 147, 147);
+    border-left: none;
+    border-right: none;
+    
+    
+}
+#previewImage{
+    height: 100%;
+    width: 100%;
+}
+#textInputForm{  
+    margin: 0%;
+    width: 100%;
+}
+.akashpandey{
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.search-box{
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 95%;
+    
+}
+.somethingnew{
+    width: 100%;    
+    margin-bottom: 1px;
+    border: 1px solid #c7c3c3;
+    border-radius: 3px;
+    height: 30px;
+}
+.thakur{
+    background-color: rgb(255, 196, 0);
+    margin: 1px;
+}
+.loading{
+    color: #45a049;
+}
+.buttonlgado{
+    background-color: #edce1d;
+    margin: 2px;
+    border-radius: 1px;
+    
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-left: 0px;
+}
+label {
+    display: flex;
+    
+    
+}
+input[type="text"],
+select {
+    width: 100%;    
+    margin-bottom: 1px;
+    border: 1px solid #c7c3c3;
+    border-radius: 3px;
+    height: 30px;
+    
+} 
+.input[type="text"] :hover{
+    background-color: #faf9f5;
+}  
+#uploadedImage {
+    max-width: 1200%;
+    display: block;
+    margin: 20px auto;
+    border-radius: 5px;
+}       
+#cropperContainer {
+    margin-top: 0px;
+    height: 155px;
+    width: 140px;
+    margin-left: 60px; /* Set your desired height here */
+    overflow: hidden;
+}
+#qrcode {
+padding: 0;
+margin: 0;
+}
+#qrcode img {
+width: 140px;
+height: 140px;
+margin: 0;
+padding: 0;
+margin-left: 55px;
+}
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .first-page {
+        display: none;
+    }
+    
+    .second-page {
+        display: block;
+        max-height: fit-content;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* yaha se second page ka css daal rhe hai */
+ body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }      
+        /* Common CSS styles for both previews */
+        
+        
+        .preview:first-child {
+            margin-right: 0;
+            flex: 0 0 60%; /* 60% width for the first preview */
+        }
+
+
+        
+        .previewgopal {
+        margin-top: 20px;
+        margin-left: 25px;
+        border: 5px solid #ccc;
+        padding: 15px;
+        width: 175px;
+        height: 175px;
+    }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-left: 0px;
+        }
+        
+        
+        button {
+            display: block;
+            width: 50%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        #uploadedImage {
+            max-width: 1200%;
+            display: block;
+            margin: 20px auto;
+            border-radius: 5px;
+        }      
+        #cropperContainer {
+            margin-top: 0px;
+            height: 155px;
+            width: 140px;
+            margin-left: 60px; /* Set your desired height here */
+            overflow: hidden;
+        }
+        
+    
+        
+    
+   
+    
+    
+
+>>>>>>> 639ca4a (typing change)
