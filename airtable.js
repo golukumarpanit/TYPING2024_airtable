@@ -146,3 +146,5 @@ if (rollNumber) {
     document.getElementById("errorMsg").innerText = "⚠️ No roll number provided!";
 }
 
+// photo lena ke kosisi
+

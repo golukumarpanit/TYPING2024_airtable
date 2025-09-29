@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 
 <!DOCTYPE html>
@@ -307,325 +306,67 @@
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+
+
+
+
+<script>
+    
+
+    // URL से roll number निकालना
+    
+
+    async function fetchPhoto() {
+      const message = document.getElementById("message");
+      const photoElement = document.getElementById("croppedImage");
+
+      try {
+        // Airtable से data fetch करना
+        const response = await fetch(
+          `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula={ROLL_NUB}="${rollNumber}"`, 
+          {
+            headers: { Authorization: `Bearer ${API_KEY}` }
+          }
+        );
+
+        const data = await response.json();
+        console.log("Airtable Response:", data);
+
+        if (data.records.length > 0) {
+          const fields = data.records[0].fields;
+
+          if (fields.photo && Array.isArray(fields.photo) && fields.photo.length > 0) {
+            console.log("Photo URL Found:", fields.photo[0].url);
+            photoElement.src = fields.photo[0].url;
+            photoElement.style.display = "block";
+            message.innerText = "Photo Loaded Successfully!";
+          } else {
+            console.log("No Photo Found, showing default image");
+            photoElement.src = "default-photo.png";
+            photoElement.style.display = "block";
+            message.innerText = "No Photo Found (Showing Default)";
+          }
+        } else {
+          console.log("No record found for this roll number");
+          message.innerText = "No Record Found for Roll: " + rollNumber;
+          photoElement.style.display = "none";
+        }
+      } catch (error) {
+        console.error("Error fetching photo:", error);
+        message.innerText = "Error fetching data!";
+        photoElement.style.display = "none";
+      }
+    }
+
+    fetchPhoto();
+  </script>
+
     
 </body>
 </html>
 
 
 
-=======
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=1024">
-    <title>___</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Noto+Serif+Devanagari:wght@200&family=Poppins:wght@200&family=Rubik+Vinyl&family=Zen+Dots&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600;700;900&display=swap">
-    <link rel="stylesheet" href="https://www.gcsm.net.in/assets/tmp-assets/css/certificate.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">     
-    <!-- <script src="script.js"></script> -->
-     <script src="script.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-</head>
-</html>
-<body>  
-    <div class="preview-container">
-        <div class="first-page">             
-            <div class="preview" id="preview1">                
-                <div class="search-box">
-                    <input type="text" id="idInput" placeholder="Enter Roll Nub ">
-                    <button class="thakur" onclick="searchCertificate()">Search</button>                                      
-                </div>                 
-                <div id="message" class="loading"></div>  
-                
-                <h2 style="text-align: center;">ADCA Certificate Data 2024</h2>
-                        <div class="form-container">                      
-                            <img id="previewImage" src="#" alt="previewImage">                      
-                        </div>
-                    <!--yaha tak hai ye code-->
-                <form id="textInputForm">                                       
-                    <div class="akashpandey">
-                        <div class="ekmedekhanahai1">
-                            <label for="msNoInput">Certificate Nub:</label>
-                            <p class="somethingnew" class="text-xl uppercase ele"> <span id="qhrc"></span></p>
-                            
-                            
-                        </div>
-                        <div class="ekmedekhanahai1">
-                            <label for="rollinput">Roll Number:</label>
-                            <p class="somethingnew" class="text-xl uppercase ele"> <span id="roll2"></span></p>
-                        </div>                    
-
-                            
-                        <div class="ekmedekhanahai1">
-                            <label for="dobInput">DOB(DD-MM-YY):</label>
-                            <p class="somethingnew" class="text-xl uppercase ele"> <span id="dob2"></span></p>
-                        </div>                                                       
-                        
-                    </div> 
-                    <div class="akashpandey">              
-                        <div class="ekmedekhanahai1">        
-                            <label for="nameInput">NAME:</label>
-                            <p class="somethingnew" class="text-xl uppercase ele"> <span id="nameInput"></span></p>
-                        </div>  
-                        <div class="ekmedekhanahai1">
-                            <label for="fatherNameInput">FATHER'S NAME:</label>                            
-                            <p class="somethingnew" class="text-xl uppercase ele"> <span id="fatherNameInput"></span></p>
-                        </div> 
-                    </div> 
-
-
-                    <div class="akashpandey">
-                        <div class="ekmedekhanahai1">
-                            <label for="Photourl">PHOTO URL:</label>                            
-                            <p class="somethingnew" class="text-xl uppercase ele"> <span id="Photourl2"></span></p>
-                        </div>                           
-
-                    </div>                    
-                        
-                    <div class="akashpandey"> 
-                    <!--course ke liye ek new selection create krna hai -->
-                        <div class="ekmedekhanahai1">
-                            <label for="courses">COURSE NAME   </label>
-                            <p class="somethingnew" class="text-xl uppercase ele"> <span id="courseName1"> </span></p>  
-                            
-                        </div>  
-                        
-                    </div>
-                    <div class="akashpandey"> 
-                        <!--course ke liye ek new selection create krna hai -->
-                            
-                            <div class="ekmedekhanahai1">
-                                <label for="durationSelect">Duration:</label>
-                                <p class="somethingnew" class="text-xl uppercase ele"> <span id="durationSelect"> </span></p> 
-                                
-                            </div>
-                        </div>
-                    <!--aisa kro ki change na ho aisa kaise hoga iska rashata nikala hai -->
-                    <div class="akashpandey">
-                        <div class="ekmedekhanahai1">              
-                            <label for="examHeldOn">Exam Held On :</label>
-                            <select id="examHeldOn" name="examHeldOn" onchange="generateQRCode()">                            
-                                <option value="February 2024">February 2024</option>
-                            </select>
-                        </div> 
-                        <div class="ekmedekhanahai1">              
-                            <label for="grade5">Grade :</label>
-                            <select id="examHeldOn" name="examHeldOn" onchange="generateQRCode()">                            
-                            <option value="FebruaryH2024">Excellent</option>
-                            </select>
-                        </div>              
-                        <div class="ekmedekhanahai1">
-                            <label for="session">Date Of Issue:</label>
-                            <select id="session" name="session" oninput="generateQRCode()">                              
-                                <option value="20-02-2024">20-02-2024</option>                           
-                            </select>
-                        </div>
-                    </div>                  
-                        <div class="ekmedekhanahai1">
-                        <div class="akashpandey">                      
-                                <button class="buttonlgado" onclick="rotateLeft()">Rotate Left</button>
-                                <button class="buttonlgado" onclick="rotateRight()">Rotate Right</button>                  
-                        </div> 
-            </div>              
-<div class="modal-content"> 
-    <!-- iskoremove nhi kr sakte     -->
-                        
-                                      
-                </form>              
-                <!-- Uploaded Image -->
-                        
-                <!--yaha se photocropper ka code hai-->          
-            </div>           
-        </div>
-    </div>  
-    <!-- Preview 2 -->
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=1024">        
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Noto+Serif+Devanagari:wght@200&family=Poppins:wght@200&family=Rubik+Vinyl&family=Zen+Dots&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600;700;900&display=swap">
-        <link rel="stylesheet" href="https://www.gcsm.net.in/assets/tmp-assets/css/certificate.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
-        <style>
-            @font-face {
-                font-family: Cambria;
-                src: url('https://www.gcsm.net.in/assets/tmp-assets/fonts/Cambria.ttf')
-            }
-            .c-body {
-                background-image: url('https://www.gcsm.net.in/assets/tmp-assets/images/bg.png');
-            }        
-           
-        </style>      
-    </head>
-    <body>
-    <!--<canvas id="canvas"></canvas>-->  
-<div class="second-page">
-    <div id="root">
-        <div class="App">
-            <div class="flex">
-                <div class="flex-initial w-fit">
-                    <div class="card font-bold bg-base-100 border-[6px] border-blue-950">
-                        <div class="card-body p-2">
-                            <div class="border-4 border-red-600 h-full p-2">
-                                <div class="border-4 border-yellow-400 h-full p-2">                                    
-                                    <div class="c-body border-2 border-blue-950 p-2 text-center">
-                                          <!--yaha se start ho rha hai -->  
-                                        <div class="ml-300">                                            
-                                                <div class="rightsidekrnahai">
-                                                    <div class="ml-2 flex-initial f-font !text-lg w-fit text-right"> An ISO 9001 : 2015 Certified Organization  </div>
-                                                    <!-- <div id="Please_update" class="ml-2 normal-font border-b flex justify-center items-center font-bold uppercase border-white border-dotted"> 012004A/ADC </div>                                                     -->
-                                                </div>
-                                                <div id="badmesamjhe" class="flex pt-1 pb-1 text-left pag">                                                                                                                                          
-                                                    <div class="ml-2 flex-initial f-font !text-lg w-fit text-left">Registration No : 24MEQPE75 </div>
-                                            </div>                                                                                                                                
-                                        </div>                                                                                                                 
-                                        <!--yaha tak hi hai code hai -->        
-                                        <img src="https://www.gcsm.net.in/assets/tmp-assets/images/logo.png">
-                                <div class="radhekrishan">
-                                        <div class="grid grid-cols-2 mt-4 mb-4 m-1">                                           
-                                            <div>
-                                                <img src="https://www.gcsm.net.in/assets/tmp-assets//images/cert-typing-banner.png">
-                                            </div>
-                                            <div class="ml-20">
-                                                <div class="flex pt-1 pb-1 text-left">
-                                                    <div class="flex-initial f-font !text-lg w-fit">Roll No :</div>
-                                                    <p id="RollNubid" class="normal-font ml-2 border-b flex justify-center items-center font-bold uppercase border-black border-dotted">012004A/ADC</p>
-                                                </div>
-                                                <div class="flex pt-1 pb-1 text-left">
-                                                    <div class="flex-initial f-font text-lg w-fit">Date Of Birth :</div>
-                                                    <p id="DOBfatch" class="ml-2 text-lg f-font border-b border-black border-dotted">13-01-1996</p>
-                                                </div>
-                                            </div>
-                                            </div>
-                                            <div class="grid grid-cols-3">
-                                            <div>
-                                                <p class="text-xl uppercase ele">Certificate Nub .: <span id="qrc">18205</span></p>
-                                                <div id="qrcode"></div>
-                                                <!--
-                                                <img id="qr" class="m-auto" src="https://www.gcsm.net.in/assets/tmp-assets/images/qr.png">
-                                                -->
-                                                <p class="text-xl cert-body1 mt-2">of course completion</p>
-                                            </div>
-                                            <div>
-                                                <img class="m-auto h-44" src="https://www.gcsm.net.in/assets/tmp-assets/images/logo-circle.png">
-                                            </div>
-                                            <div class="justify-self-center pt-2">
-                                                <div class="w-28 border border-black ml-auto mr-auto h-32" id="cropperContainer">
-                                                <img id="croppedImage" src="#" alt="croppedImage">
-                                                <!-- <img id="previewImage11" src="#" alt="previewImage">  -->
-                                            </div>
-                                            <p class="c-font text-2xl mt-4">Global Foundation</p>
-                                            </div>
-                                            </div>
-                                            <div class="mt-4 c-font font-extrabold text-xl">
-                                            <p>A Program Initiated by Global Foundation Regd. Under sec.</p>
-                                            <p> 21 Societies Act. 1860, Government Regd. No. 120/2015-16</p>
-                                            </div>                                    
-   
-                                            <div class="mt-2 !font-black cert-body pt-2 pb-6
-                                            ">
-                                            <div class="flex pt-2 pb-3 text-left">
-                                                <div class="flex-initial w-fit">This Certificate is awarded to Mr./Ms</div>
-                                                <p id="studentName" class="normal-font ml-2 mr-2 flex font-normal justify-center uppercase items-center font-black font-bold border-b border-black border-dotted">Hello Krishna</p>
-                                            </div>
-                                            <!--yaha hai father name ka pathwaya yaha se code lena hai-->
-                                            <div class="flex pt-2 pb-2 text-left">
-                                                <div class="flex-initial w-fit">S/o, D/o.</div>
-                                                <p  class="ml-2 mr-2 normal-font border-b flex justify-center items-center border-black border-dotted"><span id="fatherName" class="font-bold uppercase">Shree radha rani</span></p>
-                                                <div class="flex-initial w-fit">On Successful</div>
-                                            </div>
-                                            <!--yaha course update hona hai-->
-                                            <div class="flex pt-2 pb-2 text-left">
-                                                <div class="flex-initial w-fit">Completion of the course</div>
-                                                <p id="courseName" class="normal-font ml-2 flex justify-center items-center uppercase font-bold border-b border-black border-dotted">ADVANCE DIPLOMA IN COMPUTER APPLICATION</p>
-                                            </div>
-                                            <div class="flex pt-2 pb-2 text-left">
-                                                <div class="flex-initial w-fit">Of</div>
-                                                <p class="normal-font ml-2 mr-2 flex font-normal justify-center uppercase items-center border-b border-black border-dotted">G.C.S.M. LOHAR LANE, MUSALLAHPUR HATT, PATNA-06</p>
-                                            </div>
-                                            <!--yaha se code hai month ka jiska font change krna hai or nhi ho rha hai-->
-                                            <div id="durationText" class="flex pt-2 pb-2 text-left">
-                                                <div class="flex-initial w-fit">of Duration</div>
-                                                <!-- yaha mujhe duration change krna hai  -->
-                                                <p  class="normal-font ml-2 mr-2 flex justify-center uppercase items-center border-b border-black border-dotted"><span id="selectedDuration" class="font-bold">TWELVE</span></p>
-                                                <div class="flex-initial w-fit">Month who</div>
-                                            </div>
-                                            
-                                            <div  class="flex pt-2 pb-2 text-left">
-                                                <div class="flex-initial w-fit">has Speed in English</div>
-                                                <p class="ml-2 normal-font mr-2 flex justify-center items-center font-bold border-b border-black border-dotted"><span id="englishspeed">45</span> WPM</p>
-                                                <div class="flex-initial w-fit">Hindi</div>
-                                                <p  class="ml-2 normal-font mr-2 flex justify-center items-center font-bold border-b  border-black border-dotted"><span id="hindispeed"> 35 </span> WPM</p>
-                                                
-                                            <!--</div>                                
-                                                <div class="flex pt-2 pb-2 text-left">
-                                                <div class="flex-initial w-fit">has passed the examination held on</div>
-                                                <p class="ml-2 normal-font mr-2 flex justify-center items-center border-b border-black border-dotted"><span class="font-bold uppercase">July 2022</span></p>
-                                                <div class="flex-initial w-fit">and</div>-->
-                                            </div>
-                                        </div>    
-                                        <div class="grid mt-4 pb-10 pt-6 grid-cols-3">
-                                            <div>
-                                                <img class="w-40 ml-auto mr-auto mt-[-14px] mb-[-10px]" src="https://www.gcsm.net.in/assets/tmp-assets/images/center-head-sign.png">
-                                                <p class="ml-10 mr-10 pt-0 mt-0 c-sign border-b-c border-black"></p>
-                                                <p class="font-bold text-xl">Centre Head</p>
-                                            </div>
-                                            <!--yaha change krna hai jo data form se aa rha hai-->
-                                            <div>
-                                                <p id="completionDate" class="ml-10 mr-10 border-b-c border-black text-lg !mt-[-4px]">20-02-2024</p>
-                                                <p class="font-bold text-xl">Date of Issue</p>
-                                            </div>
-                                            <!--session change ke bad autoupdate hona chahiye 21-02-2023 me-->
-                                            <div>
-                                                <img src="https://www.gcsm.net.in/assets/tmp-assets/images/center-stamp.png" class="w-44 z-10 ml-auto mr-auto !mb-[-70px] !mt-[-50px]">
-                                                <p class="ml-10 mr-10 z-0 border-b-c border-black !mt-[-90px]"></p>
-                                            </div>
-                                        </div>
-                                        <div class="c-footer text-left mt-4">
-                                            <p class="font-bold text-xl text-it"><span class="italic text-[red]">Head Office:- </span>Global foundation, Lohar Lane, Musallahpur Hat, Patna-06</p>
-                                            <p class="font-bold text-xl text-it"><span class="italic text-[red]">Branch Office:- </span><span id="addresschangehorhahai">G.C.S.M. Near BOI Khanwan, Narhat, Nawada-805122 </span></p>
-                                            <div class="flex text-xl mt-1 text-blue-900 font-bold">
-                                                <p><b>Website: </b><a href="https://www.gcsm.net.in">www.gcsm.net.in</a></p>
-                                                <p class="ml-4"><b>E-mail: </b><a href="mailto:gcsmcomputereducation@gmail.com">gcsmcomputereducation@gmail.com</a></p>
-                                            </div>
-                                        </div>                                        
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-    
-</body>
-</html>
-
-
-
->>>>>>> 639ca4a (typing change)
