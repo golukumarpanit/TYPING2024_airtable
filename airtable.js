@@ -1,7 +1,7 @@
 /* --------------------------
    Airtable API credentials
 -----------------------------*/
-const API_KEY = 'patxNsgkdADYDxhX3.654356213cd686479f5fd85867cd6db2e53f788d3a65f920009cb676f735b83e';       
+const API_KEY = 'patxNsgkdADYDxhX3.76bd2e1372398f07b3367fa55ed280c2d015a0f307d0427325073855fd9ff655';       
 const BASE_ID = 'appQgYPqyGnNdrtlL'; 
 const TABLE_NAME = 'GCSM2024';        
 
