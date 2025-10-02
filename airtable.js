@@ -91,23 +91,12 @@ function displayCertificate(fields) {
     }
 
     document.getElementById("courseName").innerText = adcacourse;
-    document.getElementById("selectedDuration").innerText = duration;
-    document.getElementById("studentIssueDate").innerText = fields.ISSUE_DATE || "N/A";
+    document.getElementById("selectedDuration").innerText = duration;    
+    document.getElementById("englishspeed").innerText = fields.English_SPD;
+    document.getElementById("hindispeed").innerText = fields.Hindi_SPD;
 
-    // PHOTO लोड करना
-    const preview = document.getElementById('previewImage');
-    const cropped = document.getElementById('croppedImage');
-
-    if (fields.Photo && Array.isArray(fields.Photo) && fields.Photo.length > 0) {
-        const photoURL = fields.Photo[0].url; // Airtable attachment का URL
-        preview.src = photoURL;
-        cropped.src = photoURL;
-        preview.style.display = "block";
-        cropped.style.display = "block";
-    } else {
-        preview.style.display = "none";
-        cropped.style.display = "none";
-    }
+    
+    
 }
 // yaha hme qr update krna hai 
 // QR code initialize (placeholder) → इसे page load में ही define कर दो
@@ -128,7 +117,9 @@ function AkashpandeyLearn(fields) {
     Roll No: ${fields.ROLL_NUB || "N/A"}
     Name: ${fields.NAME || "N/A"}
     Father's Name: ${fields.FATHERS_NAME || "N/A"}
-    Course: ${fields.SELECT_COURSE || "N/A"}`;
+    Course: ${fields.SELECT_COURSE || "N/A"}
+    Hindi Speed : ${fields.Hindi_SPD || "N/A"}   
+    English Speed : ${fields.English_SPD || "N/A"}`;
 
     qr.clear();        // पहले वाला QR code साफ कर दो
     qr.makeCode(qrData); // नया QR code बना दो
