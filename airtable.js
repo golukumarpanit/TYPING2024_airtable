@@ -55,6 +55,54 @@ if (rollNumber) {
     document.getElementById("errorMsg").innerText = "⚠️ No roll number provided!";
 }
 
+async function AkashpandeyLearne(roll) {
+    try {
+        const formula = `FIND("${roll}", {ROLL_NUB})`;
+        const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula=${encodeURIComponent(formula)}`;
+
+        const res = await fetch(url, {
+            headers: { Authorization: `Bearer ${API_KEY}` }
+        });
+
+        const data = await res.json();
+
+        if (data.records && data.records.length > 0) {
+            AkashpandeyLearn(data.records[0].fields); 
+        } else {
+            document.getElementById("errorMsg").innerText = "❌ No record found!";
+        }
+        
+        
+    } catch (err) {
+        document.getElementById("errorMsg").innerText = "⚠️ Error loading record.";
+        console.error(err);
+    }
+}
+//yaha se jo equation liye hai o yaha fetch ho rha hai
+if (rollNumber) {
+    AkashpandeyLearne(rollNumber);
+} else {
+    document.getElementById("errorMsg").innerText = "⚠️ No roll number provided!";
+}
+
+// title change krne ka kosiis ho rha hai
+function displayCertificatell(fields) {
+            const roll = fields.ROLL_NUB || "N/A";
+            document.getElementById("RollNubid").innerText = roll;
+
+            // **Yaha title automatic set ho raha hai**
+            document.title = `${roll}`;
+        }
+
+        // Agar roll number URL me nahi hai
+        if (rollNumber) {
+            fetchRecordByRoll(rollNumber);
+        } else {
+            document.getElementById("errorMsg").innerText = "⚠️ No roll number provided!";
+            document.title = "No Roll Number"; 
+        }
+
+
 /* ---------------------------------
    Data को HTML में दिखाने का function
 -----------------------------------*/
@@ -104,70 +152,34 @@ let qr;
 
 window.onload = function () {
     qr = new QRCode(document.getElementById("qrcode"), {
-        text: "Loading QR...", // yaha se text dikh rha hai        
-           
-        width: 200, //qr ka height and witdh set huua
+        text: "Loading QR...",
+        width: 200,
         height: 200
     });
 };
-// Ye Fuction qr me data lane me help krega
+
 function AkashpandeyLearn(fields) {    
-    // Step 2: अब QR code में नया data डालो
-    const qrData = `Certificate Nub: ${fields.Ms_Nub || "N/A"}
-    Roll No: ${fields.ROLL_NUB || "N/A"}
-    Name: ${fields.NAME || "N/A"}
-    Father's Name: ${fields.FATHERS_NAME || "N/A"}
-    Course: ${fields.SELECT_COURSE || "N/A"}
-    Hindi Speed : ${fields.Hindi_SPD || "N/A"}   
-    English Speed : ${fields.English_SPD || "N/A"}`;
-
-    qr.clear();        // पहले वाला QR code साफ कर दो
-    qr.makeCode(qrData); // नया QR code बना दो
+    console.log(fields); // debug ke liye
     
-}
-async function AkashpandeyLearne(roll) {
-    try {
-        const formula = `FIND("${roll}", {ROLL_NUB})`;
-        const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula=${encodeURIComponent(formula)}`;
+    const qrData = `Certificate Nub: ${fields.Ms_Nub || "N/A"}
+Roll No: ${fields.ROLL_NUB || "N/A"}
+Name: ${fields.NAME || "N/A"}
+Father's Name: ${fields.FATHERS_NAME || "N/A"}
+Course: ${fields.SELECT_COURSE || "N/A"}
+Hindi Speed : ${fields.Hindi_SPD || "N/A"}
+English Speed : ${fields.English_SPD || "N/A"}`;
 
-        const res = await fetch(url, {
-            headers: { Authorization: `Bearer ${API_KEY}` }
-        });
-
-        const data = await res.json();
-
-        if (data.records && data.records.length > 0) {
-            AkashpandeyLearn(data.records[0].fields); 
-        } else {
-            document.getElementById("errorMsg").innerText = "❌ No record found!";
-        }
-        
-        
-    } catch (err) {
-        document.getElementById("errorMsg").innerText = "⚠️ Error loading record.";
-        console.error(err);
-    }
-}
-//yaha se jo equation liye hai o yaha fetch ho rha hai
-if (rollNumber) {
-    AkashpandeyLearne(rollNumber);
-} else {
-    document.getElementById("errorMsg").innerText = "⚠️ No roll number provided!";
+    qr.clear();
+    qr.makeCode(qrData);
 }
 
-// title change krne ka kosiis ho rha hai
-function displayCertificatell(fields) {
-            const roll = fields.ROLL_NUB || "N/A";
-            document.getElementById("RollNubid").innerText = roll;
-
-            // **Yaha title automatic set ho raha hai**
-            document.title = `${roll}`;
-        }
-
-        // Agar roll number URL me nahi hai
-        if (rollNumber) {
-            fetchRecordByRoll(rollNumber);
-        } else {
-            document.getElementById("errorMsg").innerText = "⚠️ No roll number provided!";
-            document.title = "No Roll Number"; 
-        }
+// Example call
+AkashpandeyLearn({
+  Ms_Nub: "1234",
+  ROLL_NUB: "5678",
+  NAME: "Amit Kumar",
+  FATHERS_NAME: "Rajesh",
+  SELECT_COURSE: "ADCA",
+  Hindi_SPD: "35",
+  English_SPD: "40"
+});
