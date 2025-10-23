@@ -3,7 +3,7 @@
 -----------------------------*/
 const API_KEY = 'patxNsgkdADYDxhX3.76bd2e1372398f07b3367fa55ed280c2d015a0f307d0427325073855fd9ff655';       
 const BASE_ID = 'appQgYPqyGnNdrtlL'; 
-const TABLE_NAME = 'GCSM2024';        
+const TABLE_NAME = 'GCSMTRIAL';        
 
 /* --------------------------
    URL से roll number निकालना
@@ -165,6 +165,7 @@ function AkashpandeyLearn(fields) {
 Roll No: ${fields.ROLL_NUB || "N/A"}
 Name: ${fields.NAME || "N/A"}
 Father's Name: ${fields.FATHERS_NAME || "N/A"}
+DOB: ${fields.DOB || "N/A"}
 Course: ${fields.SELECT_COURSE || "N/A"}
 Hindi Speed : ${fields.Hindi_SPD || "N/A"}
 English Speed : ${fields.English_SPD || "N/A"}`;
