@@ -20,36 +20,42 @@
     <link href="https://cdn.jsdelivr.net/npm/cropperjs/dist/cropper.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css"> 
 
-    <!-- <script src="airtable.js"></script>   -->
+    
+    
      
-    <script src="DRIVE.JS"></script>
-  
-
-    <!-- <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- <script src="html.js"></script> -->
+     <script src="test2.js"></script>
+    
+   
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
 </head>
 </html>
 <body>  
-    
+        
     <div class="preview-container">
         <div class="first-page">             
             <div class="preview" id="preview1">                
                 <div class="search-box">
                     <input type="text" id="idInput" placeholder="Enter Roll Nub ">
-                    <button class="thakur" onclick="searchCertificate()">Search</button>                                      
+                    <!-- <button class="thakur" onclick="searchCertificate()">Search</button>                                       -->
                 </div>                 
-                <div id="message" class="loading"></div>  
+                
                 
                 <h2 style="text-align: center;">ADCA Certificate Data 2024</h2>
-                        <div class="form-container">                      
-                            <img id="previewImage" src="#" alt="previewImage">                      
+                <div id="message">Please Wait...</div> 
+                        <div class="form-container">                             
+
+                            <img id="previewImage" src="#" alt="previewImage">
+                                                 
                         </div>
                     <!--yaha tak hai ye code-->
                 <form id="textInputForm">                                       
                     <div class="akashpandey">
                         <div class="ekmedekhanahai1">
                             <label for="msNoInput">Certificate Nub:</label>
-                            <p class="somethingnew" class="text-xl uppercase ele"> <span id="qhrc">Radhe</span></p>
+                            <p class="somethingnew" class="text-xl uppercase ele"> <span id="qhrc"></span></p>
                             
                             
                         </div>
@@ -193,7 +199,7 @@
                                 <div class="radhekrishan">
                                         <div class="grid grid-cols-2 mt-4 mb-4 m-1">                                           
                                             <div>
-                                                <img src="https://www.gcsm.net.in/assets/tmp-assets//images/cert-typing-banner.png">
+                                                <img src="https://www.gcsm.net.in/assets/tmp-assets//images/banner.png">
                                             </div>
                                             <div class="ml-20">
                                                 <div class="flex pt-1 pb-1 text-left">
@@ -202,7 +208,7 @@
                                                 </div>
                                                 <div class="flex pt-1 pb-1 text-left">
                                                     <div class="flex-initial f-font text-lg w-fit">Date Of Birth :</div>
-                                                    <p id="DOBfatch" class="ml-2 text-lg f-font border-b border-black border-dotted">13-01-1996</p>
+                                                    <p  class="ml-2 text-lg f-font border-b border-black border-dotted" id="DOBfatch" >13-01-1996</p>
                                                 </div>
                                             </div>
                                             </div>
@@ -220,7 +226,8 @@
                                             </div>
                                             <div class="justify-self-center pt-2">
                                                 <div class="w-28 border border-black ml-auto mr-auto h-32" id="cropperContainer">
-                                                <img id="croppedImage" src="#" alt="croppedImage">
+                                                <img id="croppedImage" src="default-photo.png" alt="Student Photo">
+                                                <div id="message">Loading...</div>
                                                 <!-- <img id="previewImage11" src="#" alt="previewImage">  -->
                                             </div>
                                             <p class="c-font text-2xl mt-4">Global Foundation</p>
@@ -231,8 +238,7 @@
                                             <p> 21 Societies Act. 1860, Government Regd. No. 120/2015-16</p>
                                             </div>                                    
    
-                                            <div class="mt-2 !font-black cert-body pt-2 pb-6
-                                            ">
+                                            <div class="mt-2 !font-black cert-body pt-2">
                                             <div class="flex pt-2 pb-3 text-left">
                                                 <div class="flex-initial w-fit">This Certificate is awarded to Mr./Ms</div>
                                                 <p id="studentName" class="normal-font ml-2 mr-2 flex font-normal justify-center uppercase items-center font-black font-bold border-b border-black border-dotted">Hello Krishna</p>
@@ -259,18 +265,16 @@
                                                 <p  class="normal-font ml-2 mr-2 flex justify-center uppercase items-center border-b border-black border-dotted"><span id="selectedDuration" class="font-bold">TWELVE</span></p>
                                                 <div class="flex-initial w-fit">Month who</div>
                                             </div>
-                                            
-                                            <div  class="flex pt-2 pb-2 text-left">
-                                                <div class="flex-initial w-fit">has Speed in English</div>
-                                                <p class="ml-2 normal-font mr-2 flex justify-center items-center font-bold border-b border-black border-dotted"> <span id="englishspeed">Error (please Typ_SPD) </span>&nbsp;WPM </p> 
-                                                <div class="flex-initial w-fit">Hindi</div>
-                                                <p  class="ml-2 normal-font mr-2 flex justify-center items-center font-bold border-b  border-black border-dotted"><span id="hindispeed"> Error </span>&nbsp;WPM</p>
-
-                                            <!--</div>
-                                                <div class="flex pt-2 pb-2 text-left">
+                                            <!-- iske uppar wala ke liye likha gya hai ye code-->
+                                            <div class="flex pt-2 pb-2 text-left">
                                                 <div class="flex-initial w-fit">has passed the examination held on</div>
-                                                <p class="ml-2 normal-font mr-2 flex justify-center items-center border-b border-black border-dotted"><span class="font-bold uppercase">July 2022</span></p>
-                                                <div class="flex-initial w-fit">and</div>-->
+                                                <!-- jiska id hai exam display-->
+                                                <p id="examDisplay" class="ml-2 normal-font mr-2 flex justify-center items-center border-b border-black border-dotted"><span class="font-bold uppercase">February 2024</span></p>
+                                                <div class="flex-initial w-fit">and</div>                                                                                                           <!--isko hi change krna hai-->
+                                            </div>
+                                            <div class="flex pt-2 pb-2 text-left">
+                                                <div class="flex-initial w-fit">has procured the grade</div>
+                                                <p class="ml-2 mr-2 normal-font border-b flex justify-center items-center border-black border-dotted"><span class="font-bold uppercase">Excellent</span></p>
                                             </div>
                                         </div>    
                                         <div class="grid mt-4 pb-10 pt-6 grid-cols-3">
@@ -309,76 +313,14 @@
         </div>
     </div>
 </div>
+<div id="message">Please Wait...</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 
 
 
 
-
-<script>
-    
-
-    // URL से roll number निकालना
-    
-
-    async function fetchPhoto() {
-      const message = document.getElementById("message");
-      const photoElement = document.getElementById("croppedImage");
-      const previewImage = document.getElementById("previewImage");
-
-      try {
-        // ✅ Airtable से data fetch करना
-        const response = await fetch(
-          `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula={ROLL_NUB}="${rollNumber}"`, 
-          { headers: { Authorization: `Bearer ${API_KEY}` } }
-        );
-
-        const data = await response.json();
-        console.log("Airtable Response:", data);
-
-        if (data.records && data.records.length > 0) {
-          const fields = data.records[0].fields;
-          console.log("Fields Object:", fields);
-
-          if (fields.photo && Array.isArray(fields.photo) && fields.photo.length > 0) {
-            console.log("Photo URL Found:", fields.photo[0].url);
-
-            photoElement.src = fields.photo[0].url;
-            previewImage.src = fields.photo[0].url;
-
-            photoElement.style.display = "block";
-            previewImage.style.display = "block";
-
-            message.innerText = "✅ Photo Loaded Successfully!";
-          } else {
-            console.warn("⚠ No Photo Found, showing default image");
-            photoElement.src = "default-photo.png";
-            photoElement.style.display = "block";
-            previewImage.style.display = "none";
-            message.innerText = "⚠ No Photo Found (Showing Default)";
-          }
-        } else {
-          console.warn("⚠ No record found for this roll number");
-          message.innerText = "No Record Found for Roll: " + rollNumber;
-          photoElement.style.display = "none";
-          previewImage.style.display = "none";
-        }
-      } catch (error) {
-        console.error("❌ Error fetching photo:", error);
-        message.innerText = "❌ Error fetching data!";
-        photoElement.style.display = "none";
-        previewImage.style.display = "none";
-      }
-    }
-
-    fetchPhoto();
-  </script>
-
-    
 </body>
 </html>
-
-
 
 
 

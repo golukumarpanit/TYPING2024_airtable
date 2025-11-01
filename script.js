@@ -1,167 +1,122 @@
-const API_KEY = 'patxNsgkdADYDxhX3.654356213cd686479f5fd85867cd6db2e53f788d3a65f920009cb676f735b83e'; // Airtable API Key
-const BASE_ID = 'appQgYPqyGnNdrtlL';
-const TABLE_NAME = 'GCSM2024';
+const API_KEY = "AIzaSyA2UyAU-6qR-nwwfauzdFG-CxhpVSSh8yw";
+const SPREADSHEET_ID = "q9KL8CBHjPuhPohyTcGp9wk68VxkJ6OT8DZrRctwRyI";
+const RANGE = "Sheet2!A:Z";
 
-let qr;
+const ROLL_COLUMN_INDEX = 0; // रोल नंबर वाला कॉलम
+const MS_COLUMN_INDEX = 1;   // Certificate Number Column (अगर जरूरत हो तो)
+const NAME_COLUMN_INDEX = 2;
+const FATHER_COLUMN_INDEX = 3;
+// आप अन्य इंडेक्स भी इस तरह दर्ज कर सकते हैं जैसे dob, photo url, course name इत्यादि
 
-window.onload = function () {
-    qr = new QRCode(document.getElementById("qrcode"), {
-        text: "QR will update after data load",
-        width: 200,
-        height: 200
-    });
-};
-
-async function fetchData() {
-    const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}`;
-    const response = await fetch(url, {
-        headers: { 'Authorization': `Bearer ${API_KEY}` }
-    });
-    if (!response.ok) throw new Error('Failed to fetch data');
-    const data = await response.json();
-    return data.records;
+function getURLParam(name) {
+    const u = new URL(window.location.href);
+    return u.searchParams.get(name);
 }
 
-// function formatDate(dobRaw) {
-//     if (!dobRaw) return '[DOB]';
-//     const date = new Date(dobRaw);
-//     if (isNaN(date.getTime())) return '[DOB]';
-//     const day = String(date.getUTCDate()).padStart(2, '0');
-//     const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-//     const year = date.getUTCFullYear();
-//     return `${day}-${month}-${year}`;
-// }
-
-function getDirectDriveLink(driveLink) {
-    let fileId = "";
-    if (driveLink.includes("id=")) {
-        fileId = driveLink.split("id=")[1];
-    } else if (driveLink.includes("/d/")) {
-        fileId = driveLink.split("/d/")[1].split("/")[0];
+async function fetchSheetValues() {
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(SPREADSHEET_ID)}/values/${encodeURIComponent(RANGE)}?key=${encodeURIComponent(API_KEY)}`;
+    const resp = await fetch(url);
+    if (!resp.ok) {
+        const txt = await resp.text();
+        throw new Error(`Sheets API error: ${resp.status} ${resp.statusText}\n${txt}`);
     }
-    return fileId ? `https://drive.google.com/uc?export=view&id=${fileId}` : null;
-}
-// yaha function kam kr rha hai api se data lene me 
-function fetch_data_from_API(record) {
-    const name = record.fields.NAME || '[Student Name]';
-    const father = record.fields.FATHERS_NAME || '[Father Name]';
-    const course = record.fields.SELECT_COURSE || '[Course]';
-    const roll = record.fields.ROLL_NUB || '[Roll No]';
-    const ms = record.fields.Ms_Nub || '[Ms No]';
-    const dobFormatted = record.fields.DOB || '[dob]';
-    // const dobFormatted = formatDate(record.fields.DOB);
-
-
-// YAHA SE QR KA DATA UPDATE HO RHA HAI 
-    const data = `Certificate Nub: ${ms}
-    Roll No: ${roll}
-    Name: ${name}
-    Father's Name: ${father}
-    Course: ${course}
-    DOB: ${dobFormatted}`;
-
-    qr.clear();
-    qr.makeCode(data);
-    // ISKE UPPAR QR HAI 
+    const data = await resp.json();
+    return data.values || [];
 }
 
-function displayCertificate(record) {
-    const get = id => document.getElementById(id);
-    const f = record.fields;
-
-    const name = f.NAME || '[Student Name]';
-    const father = f.FATHERS_NAME || '[Father Name]';
-    const course = f.SELECT_COURSE || '[Course Name]';
-    const roll = f.ROLL_NUB || '[Roll No]';
-    const ms = f.Ms_Nub || '[Ms No]';
-    const dobFormatted = record.fields.DOB || '[dob]';
-    // yaha name ka  condition kam kr rha hai 
-    let akashname = '';
-    if (course === 'Advance Diploma in Computer Application') {
-    akashname = 'XXXXXXXXXXXXXXXXXXXXXXXX';
-    } else if (course === 'Diploma in Computer Application') {
-    akashname = 'XXXXXXXXXXXXXXXXXXXXXXXX';
-    } else if (course === 'English And Hindi Typing') {
-    akashname = name;    }
-
-    // यदि 'get' एक कस्टम फंक्शन है जो document.getElementById करता है
-    get('studentName').innerText = akashname;       
-    get('nameInput').innerText = akashname;
-    // yaha if else se data aa rha hai 
-    get('fatherName').innerText = father;
-    get('fatherNameInput').innerText = father;
-    get('courseName').innerText = course;
-    get('courseName1').innerText = course;
-    get('RollNubid').innerText = roll;
-    get('roll2').innerText = roll;
-    get('qrc').innerText = ms;
-    get('qhrc').innerText = ms;
-    get('dob2').innerText = dobFormatted;
-    get('DOBfatch').innerText = dobFormatted;
-
-    let duration = '';
-    if (course === 'Advance Diploma in Computer Application') duration = 'XXXXXXXXXXXXXXXXXXXXXXXX';
-    else if (course === 'Diploma in Computer Application') duration = 'XXXXXXXXXXXXXXXXXXXXXXXX';
-    else if (course === 'English And Hindi Typing') duration = 'Six';
-
-    get('durationSelect').innerText = duration;
-    get('selectedDuration').innerText = duration || '[Duration]';
-    
-
-    // ✅ PHOTO Handling
-    const preview = document.getElementById('previewImage');
-    const cropped = document.getElementById('croppedImage');
-
-    if (record.fields.photo && record.fields.photo[0] && record.fields.photo[0].url) {
-        preview.src = record.fields.photo[0].url;
-        cropped.src = record.fields.photo[0].url;
-        preview.style.display = "block";
-        cropped.style.display = "block";
-    } else {
-        preview.style.display = "none";
-        cropped.style.display = "none";
-    }
-
-    // ✅ yaha se sab update ho rha hai data 
-    fetch_data_from_API(record);
-
+function showMessage(msg, isError = false) {
+    const out = document.getElementById("message");
+    out.textContent = msg;
+    out.style.color = isError ? "red" : "green";
 }
 
-async function searchCertificate() {
-    const inputId = document.getElementById('idInput').value.trim();
-    const messageDiv = document.getElementById('message');
+function escapeHtml(text) {
+    return String(text)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+}
 
-    if (!inputId) {
-        messageDiv.innerText = 'Please enter an ID.';
-        messageDiv.className = 'error';
-        return;
-    }
-
-    messageDiv.innerText = 'Please wait... fetching data...';
-    messageDiv.className = 'loading';
-
+async function searchByRoll(roll) {
+    showMessage("Loading... कृपया प्रतीक्षा करें।");
     try {
-        const records = await fetchData();
-        const record = records.find(r => r.fields.ROLL_NUB == inputId);
-
-        if (record) {
-            displayCertificate(record);
-            messageDiv.innerText = 'Certificate Loaded Successfully!';
-            messageDiv.className = 'success';
-        } else {
-            messageDiv.innerText = 'No record found for the given ID.';
-            messageDiv.className = 'error';
+        const rows = await fetchSheetValues();
+        if (rows.length === 0) {
+            showMessage("Sheet खाली है या range गलत है।", true);
+            return;
         }
-    } catch (error) {
-        messageDiv.innerText = 'Error fetching data. Check API Key or Base ID.';
-        messageDiv.className = 'error';
-        console.error(error);
+
+        const dataRows = rows.slice(1); // हेडर को छोड़ें
+        let found = null;
+        for (const r of dataRows) {
+            const cell = (r[ROLL_COLUMN_INDEX] || "").toString().trim();
+            if (cell === roll) {
+                found = r;
+                break;
+            }
+        }
+
+        if (!found) {
+            showMessage(`Roll "${roll}" नहीं मिला।`, true);
+            clearDataDisplay();
+            return;
+        }
+
+        // डेटा HTML में भरें
+        document.getElementById('RollNubid').textContent = escapeHtml(found[ROLL_COLUMN_INDEX] || "-");
+        document.getElementById('qrc').textContent = escapeHtml(found[MS_COLUMN_INDEX] || "-");
+        document.getElementById('studentName').textContent = escapeHtml(found[NAME_COLUMN_INDEX] || "-");
+        document.getElementById('fatherName').textContent = escapeHtml(found[FATHER_COLUMN_INDEX] || "-");
+
+        // अगर दूसरे डेटा फील्ड हैं तो इधर भी डाल सकते हैं जैसे dob, photo url, course etc.
+        // उदाहरण:
+        if(found.length > 4) document.getElementById('DOBfatch').textContent = escapeHtml(found[4] || "-");
+        if(found.length > 5) {
+            document.getElementById('croppedImage').src = escapeHtml(found[5]) || 'default-photo.png'; 
+            // Photo url assumed at index 5
+        }
+        if(found.length > 6) document.getElementById('courseName').textContent = escapeHtml(found[6] || "-");
+        if(found.length > 7) document.getElementById('selectedDuration').textContent = escapeHtml(found[7] || "-");
+        if(found.length > 8) document.getElementById('examDisplay').textContent = escapeHtml(found[8] || "-");
+
+        showMessage("✅ Data loaded successfully!");
+    } catch (err) {
+        console.error(err);
+        showMessage("Error: " + escapeHtml(err.message || err), true);
     }
-
-    // Update page title with roll number
-    document.title = inputId;  
-    
-     
 }
-// yaha se croper kam karega 
 
+function clearDataDisplay() {
+    // जब डेटा ना मिले तो फील्ड खाली कर दें
+    document.getElementById('RollNubid').textContent = "-";
+    document.getElementById('qrc').textContent = "-";
+    document.getElementById('studentName').textContent = "-";
+    document.getElementById('fatherName').textContent = "-";
+    document.getElementById('DOBfatch').textContent = "-";
+    document.getElementById('croppedImage').src = 'default-photo.png';
+    document.getElementById('courseName').textContent = "-";
+    document.getElementById('selectedDuration').textContent = "-";
+    document.getElementById('examDisplay').textContent = "-";
+}
+
+// बटन क्लिक से सर्च फ़ंक्शन ट्रिगर करें
+document.getElementById("idInput").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        const roll = document.getElementById("idInput").value.trim();
+        if (!roll) {
+            showMessage("कृपया Roll number डालें।", true);
+            return;
+        }
+        searchByRoll(roll);
+    }
+});
+
+// URL से roll नंबर get करके auto search
+const initialRoll = getURLParam("roll");
+if (initialRoll) {
+    document.getElementById("idInput").value = initialRoll;
+    setTimeout(() => searchByRoll(initialRoll), 200);
+}

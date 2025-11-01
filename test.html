@@ -1,80 +1,32 @@
-<!-- Loader HTML -->
-<div id="loader" style="display:none;" class="loader-container">
-  <div class="loader"></div>
-  <p>⏳ Please wait, fetching your record...</p>
-</div>
-
-<!-- Error message div -->
-<p id="errorMsg" style="color:red;"></p>
-
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Google Sheets से Student Marksheet</title>
+<script src="test2.js"></script>
 <style>
-  /* Loader Styles */
-  .loader-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.9);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-  .loader {
-    border: 6px solid #f3f3f3;
-    border-top: 6px solid #3498db;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-    margin-bottom: 10px;
-  }
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  #errorMsg { color: red; margin-bottom: 15px; }
+  .label { font-weight: bold; }
+  .field { margin-bottom: 10px; }
 </style>
+</head>
+<body>
 
-<script>
-async function fetchRecordByRoll(roll) {
-    try {
-        // ✅ Loader show karo
-        document.getElementById("loader").style.display = "flex";
-        document.getElementById("errorMsg").innerText = "";
+<h2>Student Marksheet Details</h2>
 
-        const formula = `FIND("${roll}", {ROLL_NUB})`;
-        const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_NAME}?filterByFormula=${encodeURIComponent(formula)}`;
+<div id="errorMsg"></div>
 
-        const res = await fetch(url, {
-            headers: { Authorization: `Bearer ${API_KEY}` }
-        });
+<div class="field"><span class="label">Roll Number:</span> <span id="RollNubid">Loading...</span></div>
+<div class="field"><span class="label">Ms Number:</span> <span id="msNub">Loading...</span></div>
+<div class="field"><span class="label">Student Name:</span> <span id="studentName">Loading...</span></div>
+<div class="field"><span class="label">1st Terminal:</span> <span id="t1">Loading...</span></div>
+<div class="field"><span class="label">2nd Terminal:</span> <span id="t2">Loading...</span></div>
+<div class="field"><span class="label">3rd Terminal:</span> <span id="t3">Loading...</span></div>
+<div class="field"><span class="label">4th Terminal:</span> <span id="t4">Loading...</span></div>
+<div class="field"><span class="label">Total:</span> <span id="total">Loading...</span></div>
+<div class="field"><span class="label">Percentage:</span> <span id="percentage">Loading...</span></div>
 
-        const data = await res.json();
-
-        if (data.records && data.records.length > 0) {
-            const fields = data.records[0].fields;
-
-            displayCertificatell(fields); // ✅ Tab Title
-            displayCertificate(fields);   // ✅ Details
-        } 
-        else {
-            document.getElementById("errorMsg").innerText = "❌ No record found!";
-        }
-    } catch (err) {
-        document.getElementById("errorMsg").innerText = "⚠️ Error loading record.";
-        console.error(err);
-    } finally {
-        // ✅ Loader hide karo
-        document.getElementById("loader").style.display = "none";
-    }
-}
-
-// Roll number check
-if (rollNumber) {
-    fetchRecordByRoll(rollNumber);
-} else {
-    document.getElementById("errorMsg").innerText = "⚠️ No roll number provided!";
-}
-</script>
+</body>
+</html>
