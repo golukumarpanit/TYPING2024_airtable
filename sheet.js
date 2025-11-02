@@ -2,17 +2,17 @@ const API_KEY = 'AIzaSyA2UyAU-6qR-nwwfauzdFG-CxhpVSSh8yw';
 const SPREADSHEET_ID = '1q9KL8CBHjPuhPohyTcGp9wk68VxkJ6OT8DZrRctwRyI';
 const SHEET_NAME = 'Sheet2';
 
-const urlParams = new URLSearchParams(window.location.search);
-const rollNumber = urlParams.get("roll");
+// const urlParams = new URLSearchParams(window.location.search);
+// const rollNumber = urlParams.get("roll");
 
-window.addEventListener("load", () => {
-  if (rollNumber) {
-    // पहले शीट की रेंज पता करें फिर रिकॉर्ड लाएं
-    fetchAndSetFullRangeThenFetchRecord(rollNumber);
-  } else {
-    document.getElementById("errorMsg").innerText = "⚠️ कृपया URL में रोल नंबर दें.";
-  }
-});
+// window.addEventListener("load", () => {
+//   if (rollNumber) {
+//     // पहले शीट की रेंज पता करें फिर रिकॉर्ड लाएं
+//     fetchAndSetFullRangeThenFetchRecord(rollNumber);
+//   } else {
+//     document.getElementById("errorMsg").innerText = "⚠️ कृपया URL में रोल नंबर दें.";
+//   }
+// });
 
 // कॉलम नंबर को अक्षर में बदलने वाला फंक्शन
 function columnToLetter(column) {
@@ -98,17 +98,20 @@ function displayFields(fields) {
   document.getElementById("fatherName").innerText   = fields['FATHERS_NAME'] || "N/A";
   document.getElementById("DOBfatch").innerText     = fields['DOB'] || "N/A";
   document.getElementById("courseName").innerText   = fields['SELECT_COURSE'] || "N/A";
+  // SPEED KA DLANA HAI
+  document.getElementById("englishspeed").innerText   = fields['English_Typ'] || "N/A";
+  document.getElementById("hindispeed").innerText   = fields['Hindi_Typ'] || "N/A";
 
  
 
   // 🔲 QR कोड update (same as before)
   const qrData = `
-Certificate No: ${fields['Ms_Nub'] || "N/A"}
-Roll No: ${fields['ROLL_NUB'] || "N/A"}
-Name: ${fields['NAME'] || "N/A"}
-Father's Name: ${fields['FATHERS_NAME'] || "N/A"}
-DOB: ${fields['DOB'] || "N/A"}
-Course: ${fields['SELECT_COURSE'] || "N/A"}
+    Certificate No: ${fields['Ms_Nub'] || "N/A"}
+    Roll No: ${fields['ROLL_NUB'] || "N/A"}
+    Name: ${fields['NAME'] || "N/A"}
+    Father's Name: ${fields['FATHERS_NAME'] || "N/A"}
+    DOB: ${fields['DOB'] || "N/A"}
+    Course: ${fields['SELECT_COURSE'] || "N/A"}
   `;
 
   qr.clear();
@@ -225,25 +228,28 @@ async function searchCertificate() {
     }
 
     // पेज लोड के समय URL से रोल नंबर निकाल और ऑटो fetch करो
-    window.onload = function () {
-      const urlParams = new URLSearchParams(window.location.search);
-      const idInput = urlParams.get("roll");
-      if (idInput) {
-        document.getElementById("idInput").value = idInput;
-        searchCertificate();
-      }
-    };
+    window.addEventListener("load", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const rollNumber = urlParams.get("roll");
 
+  if (rollNumber) {
+    // Google Sheet से data fetch करना
+    fetchAndSetFullRangeThenFetchRecord(rollNumber);
 
-// yaha qr ka stucture aa rha hai 
-let qr;
+    // Input field में रोल नंबर डालना और फोटो search करना
+    document.getElementById("idInput").value = rollNumber;
+    searchCertificate();
+  } else {
+    document.getElementById("errorMsg").innerText = "⚠️ कृपया URL में रोल नंबर दें.";
+  }
 
-window.onload = function () {
-    qr = new QRCode(document.getElementById("qrcode"), {
-        text: "QR will update after data load",
-        width: 200,
-        height: 200
-    });
-};
+  // QR कोड setup करना
+  qr = new QRCode(document.getElementById("qrcode"), {
+    text: "QR will update after data load",
+    width: 200,
+    height: 200
+  });
+});
+
 
 
