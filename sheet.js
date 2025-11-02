@@ -93,6 +93,9 @@ let cropper; // global cropper object
 function displayFields(fields) {
   // बाकी fields वही रहें
   document.getElementById("RollNubid").innerText    = fields['ROLL_NUB'] || "N/A";
+  // ✅ Page Title update:
+  document.title = `${fields['ROLL_NUB'] || "N/A"}`;
+
   document.getElementById("qrc").innerText          = fields['Ms_Nub'] || "N/A";
   document.getElementById("studentName").innerText  = fields['NAME'] || "N/A"; 
   document.getElementById("fatherName").innerText   = fields['FATHERS_NAME'] || "N/A";
