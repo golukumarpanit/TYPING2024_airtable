@@ -147,6 +147,15 @@ function displayPhotoAndQR(fields) {
 
 // 🔹 Page load पर QR init और auto-load
 window.addEventListener("load", () => {
+  // Loading शुरू
+  const loadingScreen = document.getElementById("loadingScreen");
+  const mainContent = document.getElementById("mainContent");
+  const loadingText = document.getElementById("loadingText");
+
+  // पहले "Please Wait..." दिखे
+  loadingScreen.style.display = "flex";
+  mainContent.style.display = "none";
+
   qr = new QRCode(document.getElementById("qrcode"), {
     text: "QR will update after data load",
     width: 200,
@@ -155,9 +164,20 @@ window.addEventListener("load", () => {
 
   const urlParams = new URLSearchParams(window.location.search);
   const rollNumber = urlParams.get("roll");
+
   if (rollNumber) {
-    document.getElementById("idInput").value = rollNumber;
-    fetchFullData();
-  }
+  document.getElementById("idInput").value = rollNumber;
+  fetchFullData().then(() => {
+    document.getElementById("loadingScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";  // डेटा आने पर दिखाएं
+  }).catch(() => {
+    document.getElementById("loadingScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "none";  // error पर छुपाएं
+    alert("डेटा लाने में त्रुटि या रोल नंबर गलत है।");
+  });
+} else {
+  document.getElementById("loadingText").innerText = "⚠️ Roll Number Missing in URL!";
+  document.getElementById("mainContent").style.display = "none";  // रोल ना होने पर भी न दिखाएं
+}
 });
 // </script>
