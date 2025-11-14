@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch Photo from Google Sheet</title>
+  
+  <!-- Cropper CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 20px;
+    }
+    input {
+      padding: 10px;
+      width: 250px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #0078d4;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #005ea6;
+    }
+    img {
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+    #message {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>📸 Fetch Student Photo from Google Sheet</h2>
+
+  <input type="text" id="rollNumber" placeholder="Enter Roll Number">
+  <button onclick="fetchGoogleSheetPhoto()">Fetch Photo</button>
+
+  <p id="message"></p>
+
+  <img id="previewImage" style="display:none; max-width:300px; border:2px solid #ccc;">
+  <img id="croppedImage" style="display:none; max-width:200px; border:2px solid #0078d4; margin-top:10px;">
+
+  <!-- Cropper.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+  <script>
+    let cropper;
+
+    // Google Sheet Info
+    const API_KEY = "AIzaSyA2UyAU-6qR-nwwfauzdFG-CxhpVSSh8yw"; 
+    const SPREADSHEET_ID = "1q9KL8CBHjPuhPohyTcGp9wk68VxkJ6OT8DZrRctwRyI";
+    const SHEET_NAME = "Sheet2";
+
+    async function fetchGoogleSheetPhoto() {
+      const rollNumber = document.getElementById("rollNumber").value.trim();
+      const message = document.getElementById("message");
+      const photoElement = document.getElementById("previewImage");
+      const photopreview = document.getElementById("croppedImage");
+
+      if (!rollNumber) {
+        message.innerText = "⚠️ Please enter Roll Number!";
+        return;
+      }
+
+      try {
+        message.innerText = "Fetching photo...";
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!data.values || data.values.length === 0) { //yaha se ho saktea hai
+          message.innerText = "No data found in Google Sheet.";
+          return;
+        }
+
+        const headers = data.values[0];
+        const rollIndex = headers.indexOf("Ms_Nub");
+        const urlIndex = headers.indexOf("photourl");
+
+        if (rollIndex === -1 || urlIndex === -1) {
+          message.innerText = "ROLL_NUB या photourl कॉलम नहीं मिला।";
+          return;
+        }
+
+        const record = data.values.find((row, i) => i > 0 && row[rollIndex] === rollNumber);
+
+        if (!record) {
+          message.innerText = "❌ No record found for this Roll Number.";
+          return;
+        }
+
+        let rawLink = record[urlIndex];
+        if (!rawLink) {
+          message.innerText = "No Google Drive link found.";
+          return;
+        }
+
+        // Google Drive file ID निकालना
+        let fileIdMatch = rawLink.match(/\/d\/([a-zA-Z0-9_-]+)/);
+        let fileId = fileIdMatch ? fileIdMatch[1] : null;
+        if (!fileId) {
+          const idMatch = rawLink.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+          if (idMatch && idMatch[1]) fileId = idMatch[1];
+        }
+
+        if (fileId) {
+          const imageUrl = `https://lh3.googleusercontent.com/d/${fileId}=s800`;
+          photoElement.src = imageUrl;
+          photopreview.src = imageUrl;
+          photoElement.style.display = "block";
+          photopreview.style.display = "block";
+          message.innerText = "✅ Photo loaded successfully!";
+
+          if (cropper) cropper.destroy();
+          cropper = new Cropper(photoElement, {
+            viewMode: 1,
+            autoCropArea: 0.8,
+            crop() {
+              const canvas = cropper.getCroppedCanvas({
+                width: 200,
+                height: 200,
+              });
+              photopreview.src = canvas.toDataURL();
+            },
+          });
+        } else {
+          message.innerText = "Invalid Google Drive URL.";
+        }
+      } catch (err) {
+        console.error(err);
+        message.innerText = "⚠️ Error fetching data.";
+      }
+    }
+  </script>
+</body>
+</html>
