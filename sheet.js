@@ -1,6 +1,6 @@
 {/* <script> */}
 const API_KEY = 'AIzaSyA2UyAU-6qR-nwwfauzdFG-CxhpVSSh8yw';
-const SPREADSHEET_ID = '1SdqNmP_dzx3FWWICBsWipdNNxU6iFADySaKtWRE1yrM';
+const SPREADSHEET_ID = '1q9KL8CBHjPuhPohyTcGp9wk68VxkJ6OT8DZrRctwRyI';
 const SHEET_NAME = 'Sheet2';
 let cropper, qr;
 
@@ -94,10 +94,10 @@ function displayFields(fields) {
   document.getElementById("studentName").innerText = fields['NAME'] || "N/A";
   document.getElementById("fatherName").innerText = fields['FATHERS_NAME'] || "N/A";
   document.getElementById("DOBfatch").innerText = fields['DOB'] || "N/A";
-  document.getElementById("courseName").innerText = fields['SELECT_COURSE'] || "N/A";
   document.getElementById("qrc").innerText = fields['Ms_Nub'] || "N/A";
-  // document.getElementById("englishspeed").innerText = fields['English_Typ'] || "N/A";
-  // document.getElementById("hindispeed").innerText = fields['Hindi_Typ'] || "N/A";
+  document.getElementById("courseName").innerText = fields['SELECT_COURSE'] || "N/A";
+  document.getElementById("englishspeed").innerText = fields['English_Typ'] || "N/A";
+  document.getElementById("hindispeed").innerText = fields['Hindi_Typ'] || "N/A";
   document.title = fields['ROLL_NUB'] || "Certificate Search";
 }
 
@@ -147,6 +147,15 @@ function displayPhotoAndQR(fields) {
 
 // 🔹 Page load पर QR init और auto-load
 window.addEventListener("load", () => {
+  // Loading शुरू
+  const loadingScreen = document.getElementById("loadingScreen");
+  const mainContent = document.getElementById("mainContent");
+  const loadingText = document.getElementById("loadingText");
+
+  // पहले "Please Wait..." दिखे
+  loadingScreen.style.display = "flex";
+  mainContent.style.display = "none";
+
   qr = new QRCode(document.getElementById("qrcode"), {
     text: "QR will update after data load",
     width: 200,
@@ -155,9 +164,20 @@ window.addEventListener("load", () => {
 
   const urlParams = new URLSearchParams(window.location.search);
   const rollNumber = urlParams.get("roll");
+
   if (rollNumber) {
-    document.getElementById("idInput").value = rollNumber;
-    fetchFullData();
-  }
+  document.getElementById("idInput").value = rollNumber;
+  fetchFullData().then(() => {
+    document.getElementById("loadingScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";  // डेटा आने पर दिखाएं
+  }).catch(() => {
+    document.getElementById("loadingScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "none";  // error पर छुपाएं
+    alert("डेटा लाने में त्रुटि या रोल नंबर गलत है।");
+  });
+} else {
+  document.getElementById("loadingText").innerText = "⚠️ Roll Number Missing in URL!";
+  document.getElementById("mainContent").style.display = "none";  // रोल ना होने पर भी न दिखाएं
+}
 });
 // </script>
